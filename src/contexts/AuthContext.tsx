@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { api, LoginCredentials, LoginResponse } from '@/lib/api';
 import { useToast } from '@/hooks/use-toast';
 
-interface AuthContextType {
+export interface AuthContextType {
   user: LoginResponse | null;
   isAuthenticated: boolean;
   isLoading: boolean;
