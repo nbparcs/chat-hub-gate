@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://message-app-backend-t3-2025-v2-one.vercel.app/api';
+const API_BASE_URL = 'http://3.107.179.162:8000/api';
 
 export interface LoginCredentials {
   username: string;
