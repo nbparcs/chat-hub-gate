@@ -1,12 +1,29 @@
 version: "3.9"
 services:
-  react:
+  frontend:
     build:
       context: .
       dockerfile: Dockerfile
-      # If you use Vite, uncomment this:
-      # args:
-      #   BUILD_DIR: dist
     ports:
-      - "80:80"
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://backend:8000
+    depends_on:
+      - backend
     restart: unless-stopped
+
+  backend:
+    image: python:3.9-slim
+    command: >
+      sh -c "pip install django djangorestframework djangorestframework-simplejwt && \
+             python manage.py migrate && \
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=your-secret-key-here
+      - ALLOWED_HOSTS=*
